@@ -15,10 +15,9 @@ To build and run tests you can use:
 * Develop on a feature branch created from master:
     * create a branch from *master*.
     * perform all the code changes into the newly created branch.
-    * merge *master* into your branch
+    * merge *master* into your branch, then run tests locally (eg `dotnet test src/CcAcca.ApplicationInsights.ProblemDetails.Tests`)
     * on the new branch, bump the version number in 
-      [CcAcca.ApplicationInsights.ProblemDetails.csproj] 
-      src/CcAcca.ApplicationInsights.ProblemDetails/CcAcca.ApplicationInsights.ProblemDetails.csproj); follow 
+      [CcAcca.ApplicationInsights.ProblemDetails.csproj](src/CcAcca.ApplicationInsights.ProblemDetails/CcAcca.ApplicationInsights.ProblemDetails.csproj); follow 
       [semver](https://semver.org/)
     * raise the PR (pull request) for code review & merge request to master branch.
     * PR will auto trigger a limited CI build (compile and test only)

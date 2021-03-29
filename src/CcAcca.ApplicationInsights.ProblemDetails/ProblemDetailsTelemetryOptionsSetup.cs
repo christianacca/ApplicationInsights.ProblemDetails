@@ -6,6 +6,7 @@ namespace CcAcca.ApplicationInsights.ProblemDetails
   {
     public void PostConfigure(string name, ProblemDetailsTelemetryOptions options)
     {
+      options.DimensionPrefix ??= "Problem";
       options.IncludeErrorsValue ??= (context, problem) => true;
       options.IncludeExtensionsValue ??= (context, problem) => true;
       options.IncludeRawJson ??= (context, problem) => true;

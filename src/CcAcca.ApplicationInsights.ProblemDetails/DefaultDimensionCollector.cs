@@ -40,7 +40,7 @@ namespace CcAcca.ApplicationInsights.ProblemDetails
   ///   </para>
   /// </remarks>
   /// <example>
-  /// <code>
+  ///   <code>
   /// public class CustomDefaultDimensionCollector : DefaultDimensionCollector
   /// {
   ///   protected override void CollectExtensionDimensions(
@@ -49,13 +49,15 @@ namespace CcAcca.ApplicationInsights.ProblemDetails
   ///     // your implementation
   ///   }
   /// }
-  ///
+  /// 
   /// // Startup.ConfigureServices method
   /// services.TryAddSingleton&lt;IDimensionCollector, CustomDefaultDimensionCollector>();
   /// </code>
   /// </example>
   public class DefaultDimensionCollector : IDimensionCollector
   {
+    public const string RawDimensionKey = "Raw";
+
     public DefaultDimensionCollector(IOptionsMonitor<ProblemDetailsTelemetryOptions> optionsMonitor)
     {
       OptionsMonitor = optionsMonitor;
@@ -102,7 +104,7 @@ namespace CcAcca.ApplicationInsights.ProblemDetails
     }
 
     /// <summary>
-    ///   Serialize the <paramref name="value" /> and add this as a custom dimension using a
+    ///   Serialize the <paramref name="value" /> and add any non-null result as a custom dimension using a
     ///   key constructed from the <see cref="ProblemDetailsTelemetryOptions.DimensionPrefix" />
     ///   and <paramref name="key" />
     /// </summary>
@@ -128,7 +130,7 @@ namespace CcAcca.ApplicationInsights.ProblemDetails
     protected virtual void CollectionRawProblemDimension(
       IDictionary<string, string> dimensions, MvcProblemDetails problem, HttpContext httpContext)
     {
-      CollectOne(dimensions, problem, "Raw", problem, httpContext);
+      CollectOne(dimensions, problem, RawDimensionKey, problem, httpContext);
     }
 
     /// <summary>
@@ -138,18 +140,11 @@ namespace CcAcca.ApplicationInsights.ProblemDetails
     protected virtual void CollectionStandardDimensions(
       IDictionary<string, string> dimensions, MvcProblemDetails problem, HttpContext httpContext)
     {
-      CollectOne(dimensions, problem, nameof(MvcProblemDetails.Type), problem.Type ?? "about:blank", httpContext);
-      CollectOne(dimensions, problem, nameof(MvcProblemDetails.Status), (problem.Status ?? 0).ToString(), httpContext);
-      CollectOne(dimensions, problem, nameof(MvcProblemDetails.Detail), problem.Detail ?? string.Empty, httpContext);
-      if (!string.IsNullOrWhiteSpace(problem.Title))
-      {
-        CollectOne(dimensions, problem, nameof(MvcProblemDetails.Title), problem.Title, httpContext);
-      }
-
-      if (!string.IsNullOrWhiteSpace(problem.Instance))
-      {
-        CollectOne(dimensions, problem, nameof(MvcProblemDetails.Instance), problem.Instance, httpContext);
-      }
+      CollectOne(dimensions, problem, nameof(MvcProblemDetails.Type), problem.Type, httpContext);
+      CollectOne(dimensions, problem, nameof(MvcProblemDetails.Status), problem.Status ?? 0, httpContext);
+      CollectOne(dimensions, problem, nameof(MvcProblemDetails.Detail), problem.Detail, httpContext);
+      CollectOne(dimensions, problem, nameof(MvcProblemDetails.Title), problem.Title, httpContext);
+      CollectOne(dimensions, problem, nameof(MvcProblemDetails.Instance), problem.Instance, httpContext);
     }
 
     /// <summary>
@@ -176,14 +171,15 @@ namespace CcAcca.ApplicationInsights.ProblemDetails
       return value switch
       {
         null => null,
-        string _ => value.ToString(),
+        string s => s,
+        int _ => value.ToString(),
         DateTime dtm => dtm.ToString("O"),
         DateTimeOffset dtm2 => dtm2.ToString("O"),
-        _ => value.GetType().IsValueType ? value.ToString() : TrySerializeAsJson(value)
+        _ => TrySerializeAsJson(value)
       };
     }
 
-    private static string TrySerializeAsJson(object value)
+    public static string TrySerializeAsJson(object value)
     {
       try
       {
@@ -195,7 +191,7 @@ namespace CcAcca.ApplicationInsights.ProblemDetails
       }
     }
 
-    private static string UppercaseFirst(string s)
+    public static string UppercaseFirst(string s)
     {
       if (string.IsNullOrWhiteSpace(s))
       {

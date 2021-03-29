@@ -63,7 +63,7 @@ namespace CcAcca.ApplicationInsights.ProblemDetails
     /// </summary>
     /// <remarks>
     ///   The default implementation will serialize primitive and primitive-like values (eg DateTime)
-    ///   using their <see cref="object.ToString" /> method and for all other types to try and serialize
+    ///   method and for all other types to try and serialize
     ///   the object as a JSON string
     /// </remarks>
     public Func<HttpContext, MvcProblemDetails, string, object, string> SerializeValue { get; set; }
