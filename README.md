@@ -94,7 +94,7 @@ To build and run tests you can use:
 
 ## CI server
 
-Azure Devops is used to run the dotnet cli tool to perform the build and test. See the [yaml build definition](.azure-pipelines.yml) for details.
+[Azure Devops](https://dev.azure.com/christianacca/ApplicationInsights.ProblemDetails) is used to run the dotnet cli tool to perform the build and test. See the [yaml build definition](.azure-pipelines.yml) for details.
 
 Notes:
 
