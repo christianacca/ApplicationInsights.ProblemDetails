@@ -22,7 +22,7 @@ Ensure your ASP.Net Core application has been configured with:
 1. Install package
 
    ```cmd
-   Install-Package CcAcca.ApplicationInsights.ProblemDetails -Version 1.0.0
+   Install-Package CcAcca.ApplicationInsights.ProblemDetails
    ```
 
 2. Register the library with .Net Core dependency injection system. In `Statup.ConfigureServices` method add:
