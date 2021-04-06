@@ -57,12 +57,11 @@ stages:
               packagesToPack: src/CcAcca.ApplicationInsights.ProblemDetails/CcAcca.ApplicationInsights.ProblemDetails.csproj
               nobuild: true
               configuration: '$(BuildConfiguration)'
-
-          - task: NuGetCommand@2
-            displayName: Push
-            inputs:
-              command: push
-              nuGetFeedType: external
-              publishFeedCredentials: 'nuget-feed'
-              allowPackageConflicts: true
+            
+          - task: NuGetInstaller@0
+            displayName: 'Install Nuget.exe'
+            condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
+          
+          - script: nuget push $(Build.ArtifactStagingDirectory)\**\*.nupkg -Source https://api.nuget.org/v3/index.json -ApiKey $(Nuget.ApiKey) -SkipDuplicate -NoSymbols
+            displayName: Push to Nuget
             condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
