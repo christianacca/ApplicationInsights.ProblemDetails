@@ -64,4 +64,5 @@ stages:
               command: push
               nuGetFeedType: external
               publishFeedCredentials: 'nuget-feed'
+              allowPackageConflicts: true
             condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))

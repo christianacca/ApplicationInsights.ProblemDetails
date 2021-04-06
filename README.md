@@ -1,4 +1,6 @@
-# Introduction
+# ApplicationInsights.ProblemDetails [![Build Status](https://dev.azure.com/christianacca/ApplicationInsights.ProblemDetails/_apis/build/status/christianacca.ApplicationInsights.ProblemDetails?branchName=master)](https://dev.azure.com/christianacca/ApplicationInsights.ProblemDetails/_build/latest?definitionId=7&branchName=master)
+
+## Overview
 
 MS Application Insights integration for the Hellang.Middleware.ProblemDetails package.
 
