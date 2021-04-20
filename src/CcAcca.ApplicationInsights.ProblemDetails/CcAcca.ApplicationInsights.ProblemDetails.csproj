@@ -5,7 +5,7 @@
     <Authors>Christian Crowhurst</Authors>
     <Owners>christianacca</Owners>
     <Description>MS Application Insights integration for the Hellang.Middleware.ProblemDetails package</Description>
-    <Version>1.0.0</Version>
+    <Version>1.0.1</Version>
     <PackageTags>Analytics Azure ApplicationInsights Telemetry Monitoring</PackageTags>
     <PackageLicenseUrl>https://raw.githubusercontent.com/christianacca/ApplicationInsights.ProblemDetails/master/LICENSE</PackageLicenseUrl>
     <RepositoryUrl>https://github.com/christianacca/ApplicationInsights.ProblemDetails</RepositoryUrl>

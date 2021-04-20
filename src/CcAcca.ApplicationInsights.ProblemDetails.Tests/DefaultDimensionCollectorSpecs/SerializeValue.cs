@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using CcAcca.ApplicationInsights.ProblemDetails;
 using FluentAssertions;
-using Newtonsoft.Json;
+using Microsoft.AspNetCore.Mvc;
 using Xunit;
 
 namespace Specs.DefaultDimensionCollectorSpecs
@@ -74,7 +74,8 @@ namespace Specs.DefaultDimensionCollectorSpecs
         {"key1", 1},
         {"key2", 2}
       };
-      Serialize(value).Should().Be(JsonConvert.SerializeObject(value));
+      const string expected = "{\"key1\":1,\"key2\":2}";
+      Serialize(value).Should().Be(expected);
     }
 
     [Fact]
@@ -85,7 +86,40 @@ namespace Specs.DefaultDimensionCollectorSpecs
         Prop1 = "one",
         Prop2 = 2
       };
-      Serialize(value).Should().Be(JsonConvert.SerializeObject(value));
+      const string expected = "{\"Prop1\":\"one\",\"Prop2\":2}";
+      Serialize(value).Should().Be(expected);
+    }
+
+    [Fact]
+    public void Problem_Details_With_Extensions()
+    {
+      var value = new ProblemDetails
+      {
+        Extensions =
+        {
+          {"Prop1", "one"},
+          {"Prop2", 2},
+        }
+      };
+      const string expected = "{\"Prop1\":\"one\",\"Prop2\":2}";
+      Serialize(value).Should().Be(expected);
+    }
+
+    [Fact]
+    public void Custom_Problem_Details_With_Extensions()
+    {
+      var value = new CustomProblemDetails
+      {
+        Prop1 = "one",
+        Prop2 = 2,
+        Extensions =
+        {
+          {"Prop3", "three"},
+          {"Prop4", 4},
+        }
+      };
+      const string expected = "{\"Prop1\":\"one\",\"Prop2\":2,\"Prop3\":\"three\",\"Prop4\":4}";
+      Serialize(value).Should().Be(expected);
     }
 
     [Fact]
@@ -96,7 +130,8 @@ namespace Specs.DefaultDimensionCollectorSpecs
         Prop1 = "one",
         Prop2 = 2
       };
-      Serialize(value).Should().Be(JsonConvert.SerializeObject(value));
+      const string expected = "{\"Prop1\":\"one\",\"Prop2\":2}";
+      Serialize(value).Should().Be(expected);
     }
 
     [Fact]
@@ -118,6 +153,12 @@ namespace Specs.DefaultDimensionCollectorSpecs
 
 
     public class CustomObject
+    {
+      public string Prop1 { get; set; }
+      public int Prop2 { get; set; }
+    }
+
+    public class CustomProblemDetails: ProblemDetails
     {
       public string Prop1 { get; set; }
       public int Prop2 { get; set; }

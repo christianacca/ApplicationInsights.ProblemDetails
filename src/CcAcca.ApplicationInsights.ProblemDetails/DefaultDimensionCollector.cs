@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text.Json;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
-using Newtonsoft.Json;
 using MvcProblemDetails = Microsoft.AspNetCore.Mvc.ProblemDetails;
 
 namespace CcAcca.ApplicationInsights.ProblemDetails
@@ -62,6 +62,11 @@ namespace CcAcca.ApplicationInsights.ProblemDetails
     {
       OptionsMonitor = optionsMonitor;
     }
+
+    private static JsonSerializerOptions SerializerOptions { get; } = new JsonSerializerOptions
+    {
+      IgnoreNullValues = true
+    };
 
     private IOptionsMonitor<ProblemDetailsTelemetryOptions> OptionsMonitor { get; }
     public ProblemDetailsTelemetryOptions Options => OptionsMonitor.CurrentValue;
@@ -183,9 +188,9 @@ namespace CcAcca.ApplicationInsights.ProblemDetails
     {
       try
       {
-        return JsonConvert.SerializeObject(value);
+        return JsonSerializer.Serialize(value, SerializerOptions);
       }
-      catch (JsonSerializationException)
+      catch (JsonException)
       {
         return null;
       }
