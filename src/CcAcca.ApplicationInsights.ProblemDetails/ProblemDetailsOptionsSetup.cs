@@ -3,14 +3,14 @@ using Microsoft.Extensions.Options;
 
 namespace CcAcca.ApplicationInsights.ProblemDetails
 {
-    internal class ProblemDetailsOptionsSetup: IPostConfigureOptions<ProblemDetailsOptions>
+    internal class ProblemDetailsOptionsSetup : IPostConfigureOptions<ProblemDetailsOptions>
     {
-        private IOptionsMonitor<ProblemDetailsTelemetryOptions> LibraryOptions { get; }
-
         public ProblemDetailsOptionsSetup(IOptionsMonitor<ProblemDetailsTelemetryOptions> libraryOptions)
         {
             LibraryOptions = libraryOptions;
         }
+
+        private IOptionsMonitor<ProblemDetailsTelemetryOptions> LibraryOptions { get; }
 
         public void PostConfigure(string name, ProblemDetailsOptions options)
         {
@@ -18,8 +18,8 @@ namespace CcAcca.ApplicationInsights.ProblemDetails
                 context.Items[ProblemDetailsTelemetryInitializer.HttpContextProblemItemKey] = problem;
                 if (LibraryOptions.CurrentValue.IsFailure != null)
                 {
-                    context.Items[ProblemDetailsTelemetryInitializer.HttpContextIsFailureItemKey] = 
-                        LibraryOptions.CurrentValue.IsFailure(context, problem);    
+                    context.Items[ProblemDetailsTelemetryInitializer.HttpContextIsFailureItemKey] =
+                        LibraryOptions.CurrentValue.IsFailure(context, problem);
                 }
             };
         }

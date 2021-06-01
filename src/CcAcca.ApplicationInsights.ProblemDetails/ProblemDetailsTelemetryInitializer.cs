@@ -8,65 +8,65 @@ using MvcProblemDetails = Microsoft.AspNetCore.Mvc.ProblemDetails;
 
 namespace CcAcca.ApplicationInsights.ProblemDetails
 {
-  internal class ProblemDetailsTelemetryInitializer : TelemetryInitializerBase
-  {
-    public const string HttpContextIsFailureItemKey = "IsProblemDetailFailure";
-    public const string HttpContextProblemItemKey = "ProblemDetail";
-
-    public ProblemDetailsTelemetryInitializer(IHttpContextAccessor httpContextAccessor,
-      IOptionsMonitor<ProblemDetailsTelemetryOptions> options)
-      : base(httpContextAccessor)
+    internal class ProblemDetailsTelemetryInitializer : TelemetryInitializerBase
     {
-      OptionsMonitor = options;
-      DimensionCollector = new DefaultDimensionCollector(options);
+        public const string HttpContextIsFailureItemKey = "IsProblemDetailFailure";
+        public const string HttpContextProblemItemKey = "ProblemDetail";
+
+        public ProblemDetailsTelemetryInitializer(IHttpContextAccessor httpContextAccessor,
+            IOptionsMonitor<ProblemDetailsTelemetryOptions> options)
+            : base(httpContextAccessor)
+        {
+            OptionsMonitor = options;
+            DimensionCollector = new DefaultDimensionCollector(options);
+        }
+
+        public IDimensionCollector DimensionCollector { get; }
+
+        private IOptionsMonitor<ProblemDetailsTelemetryOptions> OptionsMonitor { get; }
+
+        protected override void OnInitializeTelemetry(
+            HttpContext platformContext, RequestTelemetry requestTelemetry, ITelemetry telemetry)
+        {
+            var httpContext = platformContext.Request.HttpContext;
+            var options = OptionsMonitor.CurrentValue;
+
+            if (!(httpContext.Items[HttpContextProblemItemKey] is MvcProblemDetails problem))
+            {
+                return;
+            }
+
+            if (httpContext.Items[HttpContextIsFailureItemKey] is bool isFailure)
+            {
+                requestTelemetry.Success = !isFailure;
+            }
+
+
+            if (!options.ShouldSend(httpContext, problem))
+            {
+                return;
+            }
+
+            var choices = new DimensionChoices
+            {
+                IncludeErrorsValue = options.IncludeErrorsValue(httpContext, problem),
+                IncludeExtensionsValue = options.IncludeExtensionsValue(httpContext, problem),
+                IncludeRawJson = options.IncludeRawJson(httpContext, problem)
+            };
+
+            var candidateDimensions = new Dictionary<string, string>();
+            DimensionCollector.CollectDimensions(candidateDimensions, problem, httpContext, choices);
+            var dimensions = options.MapDimensions(httpContext, problem, candidateDimensions);
+
+            if (dimensions == null)
+            {
+                return;
+            }
+
+            foreach (var (key, value) in dimensions)
+            {
+                requestTelemetry.Properties[key] = value;
+            }
+        }
     }
-
-    public IDimensionCollector DimensionCollector { get; }
-
-    private IOptionsMonitor<ProblemDetailsTelemetryOptions> OptionsMonitor { get; }
-
-    protected override void OnInitializeTelemetry(
-      HttpContext platformContext, RequestTelemetry requestTelemetry, ITelemetry telemetry)
-    {
-      var httpContext = platformContext.Request.HttpContext;
-      var options = OptionsMonitor.CurrentValue;
-
-      if (!(httpContext.Items[HttpContextProblemItemKey] is MvcProblemDetails problem))
-      {
-        return;
-      }
-
-      if (httpContext.Items[HttpContextIsFailureItemKey] is bool isFailure)
-      {
-        requestTelemetry.Success = !isFailure;
-      }
-      
-
-      if (!options.ShouldSend(httpContext, problem))
-      {
-        return;
-      }
-
-      var choices = new DimensionChoices
-      {
-        IncludeErrorsValue = options.IncludeErrorsValue(httpContext, problem),
-        IncludeExtensionsValue = options.IncludeExtensionsValue(httpContext, problem),
-        IncludeRawJson = options.IncludeRawJson(httpContext, problem)
-      };
-
-      var candidateDimensions = new Dictionary<string, string>();
-      DimensionCollector.CollectDimensions(candidateDimensions, problem, httpContext, choices);
-      var dimensions = options.MapDimensions(httpContext, problem, candidateDimensions);
-
-      if (dimensions == null)
-      {
-        return;
-      }
-
-      foreach (var (key, value) in dimensions)
-      {
-        requestTelemetry.Properties[key] = value;
-      }
-    }
-  }
 }
