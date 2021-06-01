@@ -1,5 +1,4 @@
 ﻿using System;
-using Hellang.Middleware.ProblemDetails;
 using Microsoft.ApplicationInsights.Extensibility;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
@@ -26,9 +25,6 @@ namespace CcAcca.ApplicationInsights.ProblemDetails
     public static IServiceCollection AddProblemDetailTelemetryInitializer(this IServiceCollection services,
       Action<ProblemDetailsTelemetryOptions> configure)
     {
-      // Add ASP.NET Core Options libraries - just in case our consumer hasn't (safe to call multiple times)
-      services.AddOptions();
-
       if (configure != null)
       {
         services.Configure(configure);
@@ -36,14 +32,10 @@ namespace CcAcca.ApplicationInsights.ProblemDetails
 
       services.AddSingleton<ITelemetryInitializer, ProblemDetailsTelemetryInitializer>();
       services.TryAddSingleton<IDimensionCollector, DefaultDimensionCollector>();
-      services.ConfigureOptions<ProblemDetailsTelemetryOptionsSetup>();
-
-      services.PostConfigure<ProblemDetailsOptions>(options => {
-        options.OnBeforeWriteDetails += (context, problem) => {
-          context.Items[ProblemDetailsTelemetryInitializer.HttpContextItemKey] = problem;
-        };
-      });
-
+      services
+        .ConfigureOptions<ProblemDetailsTelemetryOptionsSetup>()
+        .ConfigureOptions<ProblemDetailsOptionsSetup>();
+      
       return services;
     }
   }

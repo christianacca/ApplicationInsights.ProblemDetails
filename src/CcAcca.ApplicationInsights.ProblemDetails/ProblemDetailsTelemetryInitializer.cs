@@ -10,7 +10,8 @@ namespace CcAcca.ApplicationInsights.ProblemDetails
 {
   internal class ProblemDetailsTelemetryInitializer : TelemetryInitializerBase
   {
-    public const string HttpContextItemKey = "ProblemDetail";
+    public const string HttpContextIsFailureItemKey = "IsProblemDetailFailure";
+    public const string HttpContextProblemItemKey = "ProblemDetail";
 
     public ProblemDetailsTelemetryInitializer(IHttpContextAccessor httpContextAccessor,
       IOptionsMonitor<ProblemDetailsTelemetryOptions> options)
@@ -30,10 +31,16 @@ namespace CcAcca.ApplicationInsights.ProblemDetails
       var httpContext = platformContext.Request.HttpContext;
       var options = OptionsMonitor.CurrentValue;
 
-      if (!(httpContext.Items[HttpContextItemKey] is MvcProblemDetails problem))
+      if (!(httpContext.Items[HttpContextProblemItemKey] is MvcProblemDetails problem))
       {
         return;
       }
+
+      if (httpContext.Items[HttpContextIsFailureItemKey] is bool isFailure)
+      {
+        requestTelemetry.Success = !isFailure;
+      }
+      
 
       if (!options.ShouldSend(httpContext, problem))
       {
