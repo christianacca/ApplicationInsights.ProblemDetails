@@ -56,7 +56,7 @@ namespace CcAcca.ApplicationInsights.ProblemDetails
         return;
       }
 
-      foreach (var (key, value) in candidateDimensions)
+      foreach (var (key, value) in dimensions)
       {
         requestTelemetry.Properties[key] = value;
       }
