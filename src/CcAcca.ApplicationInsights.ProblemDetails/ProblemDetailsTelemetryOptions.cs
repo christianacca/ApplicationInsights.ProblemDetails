@@ -8,6 +8,8 @@ namespace CcAcca.ApplicationInsights.ProblemDetails
 {
     public class ProblemDetailsTelemetryOptions
     {
+        private const string DefaultDimensionPrefix = "Problem";
+
         /// <summary>
         ///     Function that will consider all <see cref="MvcProblemDetails" /> with a status code of 500 or above
         ///     as a failure
@@ -22,7 +24,7 @@ namespace CcAcca.ApplicationInsights.ProblemDetails
         /// <summary>
         ///     The prefix for all custom dimensions used to enrich telemetry
         /// </summary>
-        public string DimensionPrefix { get; set; } = "Problem";
+        public string DimensionPrefix { get; set; } = DefaultDimensionPrefix;
 
         /// <summary>
         ///     Gets or sets the function for determining whether the ProblemDetails object
@@ -84,5 +86,24 @@ namespace CcAcca.ApplicationInsights.ProblemDetails
         ///     the object as a JSON string
         /// </remarks>
         public Func<HttpContext, MvcProblemDetails, string, object, string> SerializeValue { get; set; }
+
+        /// <summary>
+        ///     Merge any non-default property values from this instance into <paramref name="target" />
+        /// </summary>
+        public void MergeInto(ProblemDetailsTelemetryOptions target)
+        {
+            if (DimensionPrefix != DefaultDimensionPrefix)
+            {
+                target.DimensionPrefix = DimensionPrefix ?? target.DimensionPrefix;
+            }
+
+            target.IsFailure = IsFailure ?? target.IsFailure;
+            target.MapDimensions = MapDimensions ?? target.MapDimensions;
+            target.IncludeErrorsValue = IncludeErrorsValue ?? target.IncludeErrorsValue;
+            target.IncludeExtensionsValue = IncludeExtensionsValue ?? target.IncludeExtensionsValue;
+            target.IncludeRawJson = IncludeRawJson ?? target.IncludeRawJson;
+            target.SerializeValue = SerializeValue ?? target.SerializeValue;
+            target.ShouldSend = ShouldSend ?? target.ShouldSend;
+        }
     }
 }

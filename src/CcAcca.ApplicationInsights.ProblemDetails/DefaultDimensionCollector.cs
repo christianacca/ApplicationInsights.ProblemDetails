@@ -96,7 +96,7 @@ namespace CcAcca.ApplicationInsights.ProblemDetails
         }
 
         /// <summary>
-        ///     Add the values in the <see cref="ProblemDetails.Extensions" /> property of the
+        ///     Add the values in the <see cref="MvcProblemDetails.Extensions" /> property of the
         ///     <paramref name="problem" /> to the <paramref name="dimensions" />
         /// </summary>
         protected virtual void CollectExtensionDimensions(
