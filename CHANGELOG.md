@@ -6,8 +6,8 @@ All notable changes to this project will be documented in this file.
 
 ### Added
 
-- `ProblemDetailsTelemetryOptions.IsFailure`: new option used to determine whether a ProblemDetail should be considered a success/failure
-- `ProblemDetailsTelemetryOptions.MergeInto`: new convenience method
+- `ProblemDetailsTelemetryOptions`: new `IsFailure` option used to determine whether a ProblemDetail should be considered a success/failure
+- `ProblemDetailsTelemetryOptions`: new `MergeInto` convenience method
 
 ## [1.0.2] - 2021-06-01
 

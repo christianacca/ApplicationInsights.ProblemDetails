@@ -70,6 +70,15 @@ Ensure your ASP.Net Core application has been configured with:
     };
   });
    ```
+   
+* Configure when a ProblemDetail should be considered a success/failure
+
+   ```c#
+   // only status codes >= 500 treat as a failure
+   services.AddProblemDetailTelemetryInitializer(options => {
+      options.IsFailure = ProblemDetailsTelemetryOptions.ServerErrorIsFailure;
+   });
+   ```
 
 * Override the default serializer: see `ProblemDetailsTelemetryOptions.SerializeValue`
 * Override the default dimension collector for low level control: see `DefaultDimensionCollector`
