@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.1.1] - 2021-12-02
+
+### Fixed
+
+- change Microsoft.ApplicationInsights.AspNetCore minimum version to 2.12.0
+
 ## [1.1.0] - 2021-06-02
 
 ### Added
