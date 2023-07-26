@@ -1,11 +1,11 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <TargetFrameworks>netcoreapp3.1;net6</TargetFrameworks>
     <Authors>Christian Crowhurst</Authors>
     <Owners>christianacca</Owners>
     <Description>MS Application Insights integration for the Hellang.Middleware.ProblemDetails package</Description>
-    <Version>1.1.1</Version>
+    <Version>1.2.0</Version>
     <PackageTags>Analytics Azure ApplicationInsights Telemetry Monitoring</PackageTags>
     <PackageLicenseUrl>https://raw.githubusercontent.com/christianacca/ApplicationInsights.ProblemDetails/master/LICENSE</PackageLicenseUrl>
     <RepositoryUrl>https://github.com/christianacca/ApplicationInsights.ProblemDetails</RepositoryUrl>
@@ -16,8 +16,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Hellang.Middleware.ProblemDetails" Version="5.0.0" />
-    <PackageReference Include="Microsoft.ApplicationInsights.AspNetCore" Version="2.12.0" />
+    <PackageReference Include="Hellang.Middleware.ProblemDetails" Version="6.5.1" />
+    <PackageReference Include="Microsoft.ApplicationInsights.AspNetCore" Version="2.21.0" />
   </ItemGroup>
 
   <ItemGroup>
