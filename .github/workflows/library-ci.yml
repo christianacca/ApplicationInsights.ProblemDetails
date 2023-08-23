@@ -12,6 +12,11 @@ jobs:
     runs-on: ubuntu-latest
     env:
       BUILD_CONFIGURATION: Release
+      
+    # why these permissions? see: https://github.com/marketplace/actions/publish-test-results#permissions
+    permissions:
+      checks: write
+      pull-requests: write
 
     steps:
       - name: Checkout code
@@ -31,7 +36,13 @@ jobs:
         run: dotnet build --configuration ${{ env.BUILD_CONFIGURATION }} --no-restore
 
       - name: Unit Test
-        run: dotnet test --configuration ${{ env.BUILD_CONFIGURATION }} --no-build
+        run: dotnet test --configuration ${{ env.BUILD_CONFIGURATION }} --no-build --logger:trx
+
+      - name: Publish Test Results
+        if: always()
+        uses: EnricoMi/publish-unit-test-result-action@v2
+        with:
+          files: '**/*.trx'
 
       - name: Pack
         run: dotnet pack --configuration ${{ env.BUILD_CONFIGURATION }} --no-build
