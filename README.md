@@ -1,10 +1,10 @@
-# ApplicationInsights.ProblemDetails [![Build Status](https://dev.azure.com/christianacca/ApplicationInsights.ProblemDetails/_apis/build/status/christianacca.ApplicationInsights.ProblemDetails?branchName=master)](https://dev.azure.com/christianacca/ApplicationInsights.ProblemDetails/_build/latest?definitionId=7&branchName=master)
+# ApplicationInsights.ProblemDetails ![Build Status](https://github.com/christianacca/ApplicationInsights.ProblemDetails/actions/workflows/library-ci.yml/badge.svg)
 
 ## Overview
 
 MS Application Insights integration for the Hellang.Middleware.ProblemDetails package.
 
-_Enriches request telementry with custom dimensions extracted from a ProblemDetail response:_
+_Enriches request telemetry with custom dimensions extracted from a ProblemDetail response:_
 
 ![alt text](./docs/app-insights-screenshot.png "Application Insights screenshot")
 
@@ -104,7 +104,7 @@ To build and run tests you can use:
 
 ## CI server
 
-[Azure Devops](https://dev.azure.com/christianacca/ApplicationInsights.ProblemDetails) is used to run the dotnet cli tool to perform the build and test. See the [yaml build definition](.azure-pipelines.yml) for details.
+[Github actions](https://github.com/christianacca/ApplicationInsights.ProblemDetails/actions) is used to run the dotnet cli tool to perform the build and test. See the [yaml build definition](.github/workflows/library-ci.yml) for details.
 
 Notes:
 
