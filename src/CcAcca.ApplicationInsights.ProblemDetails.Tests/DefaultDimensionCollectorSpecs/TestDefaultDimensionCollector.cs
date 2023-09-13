@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using CcAcca.ApplicationInsights.ProblemDetails;
+﻿using CcAcca.ApplicationInsights.ProblemDetails;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;

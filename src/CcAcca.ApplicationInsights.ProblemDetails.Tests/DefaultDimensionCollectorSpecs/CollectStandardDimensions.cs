@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using CcAcca.ApplicationInsights.ProblemDetails;
+﻿using CcAcca.ApplicationInsights.ProblemDetails;
 using FluentAssertions;
 using Microsoft.AspNetCore.Mvc;
 using Xunit;

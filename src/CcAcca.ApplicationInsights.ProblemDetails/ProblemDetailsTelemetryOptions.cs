@@ -1,5 +1,4 @@
-﻿using System;
-using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using MvcProblemDetails = Microsoft.AspNetCore.Mvc.ProblemDetails;
 using Dimensions = System.Collections.Generic.IDictionary<string, string>;
