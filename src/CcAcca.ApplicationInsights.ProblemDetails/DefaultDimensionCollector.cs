@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text.Json;
+using System.Text.Json.Serialization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
@@ -65,7 +66,7 @@ namespace CcAcca.ApplicationInsights.ProblemDetails
 
         private static JsonSerializerOptions SerializerOptions { get; } = new JsonSerializerOptions
         {
-            IgnoreNullValues = true
+            DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull
         };
 
         private IOptionsMonitor<ProblemDetailsTelemetryOptions> OptionsMonitor { get; }
