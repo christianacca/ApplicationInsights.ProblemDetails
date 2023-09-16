@@ -22,7 +22,7 @@ namespace CcAcca.ApplicationInsights.ProblemDetails
         ///     Uses the specified <paramref name="configure" /> callback for configuration.
         /// </summary>
         public static IServiceCollection AddProblemDetailTelemetryInitializer(this IServiceCollection services,
-            Action<ProblemDetailsTelemetryOptions> configure)
+            Action<ProblemDetailsTelemetryOptions>? configure)
         {
             if (configure != null)
             {

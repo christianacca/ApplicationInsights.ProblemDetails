@@ -144,29 +144,29 @@ namespace Specs.DefaultDimensionCollectorSpecs
             Serialize(value).Should().BeNull();
         }
 
-        private static string Serialize(object value)
+        private static string? Serialize(object? value)
         {
-            return DefaultDimensionCollector.SerializeValue(null, null, "key", value);
+            return DefaultDimensionCollector.SerializeValue(null!, null!, "key", value);
         }
 
 
         public class CustomObject
         {
-            public string Prop1 { get; set; }
+            public string? Prop1 { get; set; }
             public int Prop2 { get; set; }
         }
 
         public class CustomProblemDetails : ProblemDetails
         {
-            public string Prop1 { get; set; }
+            public string? Prop1 { get; set; }
             public int Prop2 { get; set; }
         }
 
         public class CircularCustomObject
         {
-            public string Prop1 { get; set; }
+            public string? Prop1 { get; set; }
 
-            public CircularCustomObject Self { get; set; }
+            public CircularCustomObject? Self { get; set; }
         }
 
         public struct CustomStruct

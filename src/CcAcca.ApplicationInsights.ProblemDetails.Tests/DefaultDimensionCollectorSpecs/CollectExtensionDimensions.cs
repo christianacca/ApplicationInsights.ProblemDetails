@@ -18,7 +18,7 @@ namespace Specs.DefaultDimensionCollectorSpecs
 
             // when
             var d = new Dictionary<string, string>();
-            sut.CollectExtensionDimensions(d, problem, null);
+            sut.CollectExtensionDimensions(d, problem);
 
             // then
             d.Should().BeEmpty();
@@ -36,7 +36,7 @@ namespace Specs.DefaultDimensionCollectorSpecs
 
             // when
             var d = new Dictionary<string, string>();
-            sut.CollectExtensionDimensions(d, problem, null);
+            sut.CollectExtensionDimensions(d, problem);
 
             // then
             var expected = new Dictionary<string, string>
@@ -44,6 +44,24 @@ namespace Specs.DefaultDimensionCollectorSpecs
                 { $"{DefaultOptions.DimensionPrefix}.Key1", "value1" }
             };
             d.Should().BeEquivalentTo(expected);
+        }
+
+        [Fact]
+        public void One_item_with_null_value()
+        {
+            // given
+            var sut = Sut();
+            var problem = new ProblemDetails
+            {
+                Extensions = { { "Key1", null } }
+            };
+
+            // when
+            var d = new Dictionary<string, string>();
+            sut.CollectExtensionDimensions(d, problem);
+
+            // then
+            d.Should().BeEmpty();
         }
 
         [Fact]
@@ -58,7 +76,7 @@ namespace Specs.DefaultDimensionCollectorSpecs
 
             // when
             var d = new Dictionary<string, string>();
-            sut.CollectExtensionDimensions(d, problem, null);
+            sut.CollectExtensionDimensions(d, problem);
 
             // then
             var expected = new Dictionary<string, string>
@@ -84,7 +102,7 @@ namespace Specs.DefaultDimensionCollectorSpecs
 
             // when
             var d = new Dictionary<string, string>();
-            sut.CollectExtensionDimensions(d, problem, null);
+            sut.CollectExtensionDimensions(d, problem);
 
             // then
             var expected = new Dictionary<string, string>

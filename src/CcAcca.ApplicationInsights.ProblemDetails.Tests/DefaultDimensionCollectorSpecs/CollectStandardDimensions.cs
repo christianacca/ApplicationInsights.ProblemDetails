@@ -18,7 +18,7 @@ namespace Specs.DefaultDimensionCollectorSpecs
 
             // when
             var d = new Dictionary<string, string>();
-            sut.CollectionStandardDimensions(d, problem, null);
+            sut.CollectionStandardDimensions(d, problem);
 
             // then
             var expected = new Dictionary<string, string>
@@ -44,7 +44,7 @@ namespace Specs.DefaultDimensionCollectorSpecs
 
             // when
             var d = new Dictionary<string, string>();
-            sut.CollectionStandardDimensions(d, problem, null);
+            sut.CollectionStandardDimensions(d, problem);
 
             // then
             // then
@@ -54,6 +54,35 @@ namespace Specs.DefaultDimensionCollectorSpecs
                 { $"{DefaultOptions.DimensionPrefix}.Instance", "Some instance" },
                 { $"{DefaultOptions.DimensionPrefix}.Status", "400" },
                 { $"{DefaultOptions.DimensionPrefix}.Title", "Some title" },
+                { $"{DefaultOptions.DimensionPrefix}.Type", "Some type" }
+            };
+            d.Should().BeEquivalentTo(expected);
+        }
+
+        [Fact]
+        public void Partial_problem()
+        {
+            // given
+            var sut = Sut();
+            var problem = new ProblemDetails
+            {
+                Detail = null,
+                Instance = "Some instance",
+                Status = 400,
+                Title = null,
+                Type = "Some type"
+            };
+
+            // when
+            var d = new Dictionary<string, string>();
+            sut.CollectionStandardDimensions(d, problem);
+
+            // then
+            // then
+            var expected = new Dictionary<string, string>
+            {
+                { $"{DefaultOptions.DimensionPrefix}.Instance", "Some instance" },
+                { $"{DefaultOptions.DimensionPrefix}.Status", "400" },
                 { $"{DefaultOptions.DimensionPrefix}.Type", "Some type" }
             };
             d.Should().BeEquivalentTo(expected);

@@ -18,7 +18,7 @@ namespace Specs.DefaultDimensionCollectorSpecs
 
             // when
             var d = new Dictionary<string, string>();
-            sut.CollectValidationErrorDimensions(d, problem, null);
+            sut.CollectValidationErrorDimensions(d, problem);
 
             // then
             d.Should().BeEmpty();
@@ -34,7 +34,7 @@ namespace Specs.DefaultDimensionCollectorSpecs
 
             // when
             var d = new Dictionary<string, string>();
-            sut.CollectValidationErrorDimensions(d, problem, null);
+            sut.CollectValidationErrorDimensions(d, problem);
 
             // then
             var expected = new Dictionary<string, string>
@@ -54,7 +54,7 @@ namespace Specs.DefaultDimensionCollectorSpecs
 
             // when
             var d = new Dictionary<string, string>();
-            sut.CollectValidationErrorDimensions(d, problem, null);
+            sut.CollectValidationErrorDimensions(d, problem);
 
             // then
             var expected = new Dictionary<string, string>
@@ -74,7 +74,7 @@ namespace Specs.DefaultDimensionCollectorSpecs
 
             // when
             var d = new Dictionary<string, string>();
-            sut.CollectValidationErrorDimensions(d, problem, null);
+            sut.CollectValidationErrorDimensions(d, problem);
 
             // then
             var expected = new Dictionary<string, string>

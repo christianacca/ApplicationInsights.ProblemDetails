@@ -12,22 +12,22 @@ namespace Specs.DefaultDimensionCollectorSpecs
         {
         }
 
-        public new void CollectionStandardDimensions(IDictionary<string, string> dimensions, ProblemDetails problem,
-            HttpContext httpContext)
+        public new void CollectionStandardDimensions(
+            IDictionary<string, string> dimensions, ProblemDetails problem, HttpContext? httpContext = null)
         {
-            base.CollectionStandardDimensions(dimensions, problem, httpContext);
+            base.CollectionStandardDimensions(dimensions, problem, httpContext ?? new DefaultHttpContext());
         }
 
-        public new void CollectExtensionDimensions(IDictionary<string, string> dimensions, ProblemDetails problem,
-            HttpContext httpContext)
+        public new void CollectExtensionDimensions(
+            IDictionary<string, string> dimensions, ProblemDetails problem, HttpContext? httpContext = null)
         {
-            base.CollectExtensionDimensions(dimensions, problem, httpContext);
+            base.CollectExtensionDimensions(dimensions, problem, httpContext ?? new DefaultHttpContext());
         }
 
         public new void CollectValidationErrorDimensions(
-            IDictionary<string, string> dimensions, ValidationProblemDetails problem, HttpContext httpContext)
+            IDictionary<string, string> dimensions, ValidationProblemDetails problem, HttpContext? httpContext = null)
         {
-            base.CollectValidationErrorDimensions(dimensions, problem, httpContext);
+            base.CollectValidationErrorDimensions(dimensions, problem, httpContext ?? new DefaultHttpContext());
         }
     }
 }

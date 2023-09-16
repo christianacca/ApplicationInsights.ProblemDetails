@@ -119,7 +119,7 @@ namespace CcAcca.ApplicationInsights.ProblemDetails
         /// <param name="httpContext">The http context of the current request</param>
         protected virtual void CollectOne(IDictionary<string, string> dimensions, MvcProblemDetails problem,
             string key,
-            object value, HttpContext httpContext)
+            object? value, HttpContext httpContext)
         {
             var serializedValue = Options.SerializeValue(httpContext, problem, key, value);
             if (serializedValue != null)
@@ -170,8 +170,8 @@ namespace CcAcca.ApplicationInsights.ProblemDetails
         ///     The default implementation used to serialize value to be sent as custom dimensions
         /// </summary>
         /// <returns></returns>
-        public static string SerializeValue(HttpContext httpContext, MvcProblemDetails problem, string key,
-            object value)
+        public static string? SerializeValue(HttpContext httpContext, MvcProblemDetails problem, string key,
+            object? value)
         {
             return value switch
             {
@@ -184,7 +184,7 @@ namespace CcAcca.ApplicationInsights.ProblemDetails
             };
         }
 
-        public static string TrySerializeAsJson(object value)
+        public static string? TrySerializeAsJson(object? value)
         {
             try
             {
@@ -196,7 +196,7 @@ namespace CcAcca.ApplicationInsights.ProblemDetails
             }
         }
 
-        public static string UppercaseFirst(string s)
+        public static string UppercaseFirst(string? s)
         {
             if (string.IsNullOrWhiteSpace(s))
             {
