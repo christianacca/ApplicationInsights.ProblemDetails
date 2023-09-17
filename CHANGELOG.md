@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file.
 
+## [2.0.0-beta.1] - 2023-10-17
+
+### Added
+
+- Support for nullable reference types
+- `DefaultDimensionCollector`: `SerializeValue` supports `DateOnly` and `TimeOnly`
+
+### Breaking Changes
+
+- Upgraded Microsoft.ApplicationInsights.AspNetCore dependency to 2.21.0
+  - This to mitigate vulnerability in Newtonsoft.Json see: https://github.com/advisories/GHSA-5crp-9r3c-p9vr
+- Dropped support for .NET Core 3.1; minimum supported .NET version is now .NET 6.0
+- Signature of dimension serialization changed to support nullable reference types
+
 ## [1.1.1] - 2021-12-02
 
 ### Fixed

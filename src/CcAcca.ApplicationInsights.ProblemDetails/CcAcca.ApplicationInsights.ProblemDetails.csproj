@@ -5,16 +5,18 @@
     <Authors>Christian Crowhurst</Authors>
     <Owners>christianacca</Owners>
     <Description>MS Application Insights integration for the Hellang.Middleware.ProblemDetails package</Description>
-    <Version>1.1.1</Version>
+    <Version>2.0.0-beta.1</Version>
     <PackageTags>Analytics Azure ApplicationInsights Telemetry Monitoring</PackageTags>
     <PackageLicenseUrl>https://raw.githubusercontent.com/christianacca/ApplicationInsights.ProblemDetails/master/LICENSE</PackageLicenseUrl>
     <RepositoryUrl>https://github.com/christianacca/ApplicationInsights.ProblemDetails</RepositoryUrl>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <PackageReleaseNotes>See: https://github.com/christianacca/ApplicationInsights.ProblemDetails/blob/master/CHANGELOG.md</PackageReleaseNotes>
     <Company>christianacca</Company>
     <GenerateAssemblyInfo>true</GenerateAssemblyInfo>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
-    <NoWarn>$(NoWarn);CS1701;CS1702;CS1591</NoWarn>
+    <NoWarn>$(NoWarn);CS1701;CS1702;CS1591;NU5125</NoWarn>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
   </PropertyGroup>
 
@@ -27,6 +29,13 @@
     <AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleTo">
       <_Parameter1>$(MSBuildProjectName).Tests</_Parameter1>
     </AssemblyAttribute>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="../../README.md">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
   </ItemGroup>
 
 </Project>
