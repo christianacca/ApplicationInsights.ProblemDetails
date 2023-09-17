@@ -180,6 +180,8 @@ namespace CcAcca.ApplicationInsights.ProblemDetails
                 int _ => value.ToString(),
                 DateTime dtm => dtm.ToString("O"),
                 DateTimeOffset dtm2 => dtm2.ToString("O"),
+                DateOnly d => d.ToString("O"),
+                TimeOnly t => t.ToString("O"),
                 _ => TrySerializeAsJson(value)
             };
         }
