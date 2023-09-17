@@ -6,7 +6,7 @@ MS Application Insights integration for the Hellang.Middleware.ProblemDetails pa
 
 _Enriches request telemetry with custom dimensions extracted from a ProblemDetail response:_
 
-![alt text](./docs/app-insights-screenshot.png "Application Insights screenshot")
+![Screenshot of enriched telemetry captured in Application Insights](https://raw.githubusercontent.com/christianacca/ApplicationInsights.ProblemDetails/master/docs/app-insights-screenshot.png)
 
 ## Usage
 
