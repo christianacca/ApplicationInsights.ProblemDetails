@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using Microsoft.ApplicationInsights.AspNetCore.TelemetryInitializers;
+﻿using Microsoft.ApplicationInsights.AspNetCore.TelemetryInitializers;
 using Microsoft.ApplicationInsights.Channel;
 using Microsoft.ApplicationInsights.DataContracts;
 using Microsoft.AspNetCore.Http;

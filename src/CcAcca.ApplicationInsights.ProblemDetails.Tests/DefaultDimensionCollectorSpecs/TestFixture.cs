@@ -6,7 +6,7 @@ namespace Specs.DefaultDimensionCollectorSpecs
 {
     public static class TestFixture
     {
-        private static ProblemDetailsTelemetryOptions _defaultOptions;
+        private static ProblemDetailsTelemetryOptions? _defaultOptions;
 
         public static ProblemDetailsTelemetryOptions DefaultOptions
         {

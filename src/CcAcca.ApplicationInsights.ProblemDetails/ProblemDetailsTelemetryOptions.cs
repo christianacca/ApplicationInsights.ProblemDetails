@@ -1,4 +1,4 @@
-﻿using System;
+﻿using System.Diagnostics.CodeAnalysis;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using MvcProblemDetails = Microsoft.AspNetCore.Mvc.ProblemDetails;
@@ -19,7 +19,7 @@ namespace CcAcca.ApplicationInsights.ProblemDetails
         ///     that will treat any request that returns a status code greater or equal to 400 as NOT successful
         /// </remarks>
         public static Func<HttpContext, MvcProblemDetails, bool> ServerErrorIsFailure =
-            (context, problem) => problem.Status >= StatusCodes.Status500InternalServerError;
+            (_, problem) => problem.Status >= StatusCodes.Status500InternalServerError;
 
         /// <summary>
         ///     The prefix for all custom dimensions used to enrich telemetry
@@ -31,7 +31,7 @@ namespace CcAcca.ApplicationInsights.ProblemDetails
         ///     for the current request should be used to enrich the request telemetry.
         ///     The default is to always send
         /// </summary>
-        public Func<HttpContext, MvcProblemDetails, bool> ShouldSend { get; set; }
+        public Func<HttpContext, MvcProblemDetails, bool> ShouldSend { get; set; } = null!;
 
         /// <summary>
         ///     Gets or sets the function for determining whether each key-value pair from
@@ -41,7 +41,7 @@ namespace CcAcca.ApplicationInsights.ProblemDetails
         /// <remarks>
         ///     The default is to always include this dimension
         /// </remarks>
-        public Func<HttpContext, MvcProblemDetails, bool> IncludeErrorsValue { get; set; }
+        public Func<HttpContext, MvcProblemDetails, bool> IncludeErrorsValue { get; set; } = null!;
 
         /// <summary>
         ///     Gets or sets the function for determining whether each key-value pair from
@@ -52,7 +52,7 @@ namespace CcAcca.ApplicationInsights.ProblemDetails
         ///     The default is to send all values from <see cref="MvcProblemDetails.Extensions" />
         ///     dictionary that <see cref="SerializeValue" /> returns as string
         /// </remarks>
-        public Func<HttpContext, MvcProblemDetails, bool> IncludeExtensionsValue { get; set; }
+        public Func<HttpContext, MvcProblemDetails, bool> IncludeExtensionsValue { get; set; } = null!;
 
         /// <summary>
         ///     Gets or sets the function for determining whether the JSON serialized
@@ -62,19 +62,19 @@ namespace CcAcca.ApplicationInsights.ProblemDetails
         /// <remarks>
         ///     The default is to always include this dimension
         /// </remarks>
-        public Func<HttpContext, MvcProblemDetails, bool> IncludeRawJson { get; set; }
+        public Func<HttpContext, MvcProblemDetails, bool> IncludeRawJson { get; set; } = null!;
 
         /// <summary>
         ///     Gets or sets the function for determining whether the <see cref="MvcProblemDetails" />
         ///     should be considered a success/failure within application insights
         /// </summary>
-        public Func<HttpContext, MvcProblemDetails, bool> IsFailure { get; set; }
+        public Func<HttpContext, MvcProblemDetails, bool>? IsFailure { get; set; }
 
         /// <summary>
         ///     Gets or sets the function that can be used to override the key-value pairs
         ///     (aka custom dimensions) that will be used to enrich the request telemetry
         /// </summary>
-        public Func<HttpContext, MvcProblemDetails, Dimensions, Dimensions> MapDimensions { get; set; }
+        public Func<HttpContext, MvcProblemDetails, Dimensions, Dimensions?> MapDimensions { get; set; } = null!;
 
 
         /// <summary>
@@ -85,11 +85,12 @@ namespace CcAcca.ApplicationInsights.ProblemDetails
         ///     method and for all other types to try and serialize
         ///     the object as a JSON string
         /// </remarks>
-        public Func<HttpContext, MvcProblemDetails, string, object, string> SerializeValue { get; set; }
+        public Func<HttpContext, MvcProblemDetails, string, object?, string?> SerializeValue { get; set; } = null!;
 
         /// <summary>
         ///     Merge any non-default property values from this instance into <paramref name="target" />
         /// </summary>
+        [SuppressMessage("ReSharper", "NullCoalescingConditionIsAlwaysNotNullAccordingToAPIContract")]
         public void MergeInto(ProblemDetailsTelemetryOptions target)
         {
             if (DimensionPrefix != DefaultDimensionPrefix)

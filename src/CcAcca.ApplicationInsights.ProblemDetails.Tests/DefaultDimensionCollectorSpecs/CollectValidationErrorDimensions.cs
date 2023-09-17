@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using CcAcca.ApplicationInsights.ProblemDetails;
+﻿using CcAcca.ApplicationInsights.ProblemDetails;
 using FluentAssertions;
 using Microsoft.AspNetCore.Mvc;
 using Xunit;
@@ -19,7 +18,7 @@ namespace Specs.DefaultDimensionCollectorSpecs
 
             // when
             var d = new Dictionary<string, string>();
-            sut.CollectValidationErrorDimensions(d, problem, null);
+            sut.CollectValidationErrorDimensions(d, problem);
 
             // then
             d.Should().BeEmpty();
@@ -35,7 +34,7 @@ namespace Specs.DefaultDimensionCollectorSpecs
 
             // when
             var d = new Dictionary<string, string>();
-            sut.CollectValidationErrorDimensions(d, problem, null);
+            sut.CollectValidationErrorDimensions(d, problem);
 
             // then
             var expected = new Dictionary<string, string>
@@ -55,7 +54,7 @@ namespace Specs.DefaultDimensionCollectorSpecs
 
             // when
             var d = new Dictionary<string, string>();
-            sut.CollectValidationErrorDimensions(d, problem, null);
+            sut.CollectValidationErrorDimensions(d, problem);
 
             // then
             var expected = new Dictionary<string, string>
@@ -75,7 +74,7 @@ namespace Specs.DefaultDimensionCollectorSpecs
 
             // when
             var d = new Dictionary<string, string>();
-            sut.CollectValidationErrorDimensions(d, problem, null);
+            sut.CollectValidationErrorDimensions(d, problem);
 
             // then
             var expected = new Dictionary<string, string>
